@@ -1,20 +1,24 @@
 //
-//  ContentView.swift
+//  LandmarkDetail.swift
 //  experience-sampler
 //
-//  Created by Darya Orlova on 8/15/22.
+//  Created by Darya Orlova on 8/16/22.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct LandmarkDetail: View {
+    
+    var landmark: Landmark
+    
     var body: some View {
-        VStack{
-            MapView()
+        
+        ScrollView{
+            MapView(coordinate: landmark.locationCoordinates)
                 .ignoresSafeArea(edges: .top)
                 .frame(height: 300)
             
-            CircleImage()
+            CircleImage(image: landmark.image)
                 .frame(height: 200)
                 .offset(y:-130)
                 .padding(.bottom, -130)
@@ -22,22 +26,22 @@ struct ContentView: View {
             Spacer()
             
             VStack(alignment: .leading) {
-                Text("Experience Sampling")
+                Text(landmark.name)
                     .font(.title)
                 
                 HStack {
-                    Text("Check in with Yourself")
+                    Text(landmark.park)
                     Spacer()
-                    Text("an app!")
+                    Text(landmark.state)
                 }
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 
                 Divider()
                 
-                Text("This app will let you report how you feel and who you're with.")
+                Text("About \(landmark.name)")
                 
-                Text("It will record your location and time of day.")
+                Text(landmark.description)
             }
             .padding()
             
@@ -46,8 +50,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct LandmarkDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LandmarkDetail(landmark: landmarks[1])
     }
 }
